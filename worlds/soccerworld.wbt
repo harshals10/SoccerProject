@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.9978390486453337 0.05756446271076196 0.031679104018209545 0.7556867838183996
-  position 0.5667084064875767 13.797444800887988 13.493019638876087
+  orientation -0.016476015735716873 0.9556483491045568 0.2940489308928218 3.400427256219493
+  position -3.9649228388869973 11.526423124533542 -12.920472948077544
 }
 TexturedBackground {
 }
@@ -13,8 +13,51 @@ TexturedBackgroundLight {
 RobotstadiumSoccerField {
 }
 DEF BALL SoccerBall {
+  translation -0.05206977096612622 0.11205824000000002 0.0017504159823270534
+  rotation -0.03403257906546854 0.1471466148509684 -0.9885290371557394 -0.4661447747002474
 }
-Robot {
+DEF SUPERVISOR Robot {
+  children [
+    DEF EMITTER Emitter {
+      translation 0 0.06 0
+      rotation 0 1 0 3.1415
+      children [
+        DEF RANGE Transform {
+          translation 0 0.05 0
+          scale 10 10 10
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8 0.8 0.8
+                transparency 0.5
+                roughness 1
+                metalness 0
+              }
+              geometry Sphere {
+                radius 10
+                subdivision 2
+              }
+            }
+          ]
+        }
+      ]
+      type "infra-red"
+      channel -1
+    }
+  ]
+  boundingObject DEF MYBOT_BOUNDING Transform {
+    translation 0 0.0415 0
+    children [
+      DEF BODY Cylinder {
+        height 0.08
+        radius 0.045
+      }
+    ]
+  }
+  physics DEF MYBOT_PHYSICS Physics {
+    density -1
+    mass 0.5
+  }
   controller "soccer_referee"
   supervisor TRUE
 }
